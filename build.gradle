@@ -1,0 +1,63 @@
+apply plugin: 'application'
+
+group = "cz.kramolis.tests"
+version = '-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    undertowVersion = '1.3.18.Final'
+    weldVersion = '2.3.3.Final'
+    deltaspikeVersion = '1.5.4'
+    jerseyVersion = '2.22.2'
+    ozarkVersion = '1.0.0-m02'
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+mainClassName = 'cz.kramolis.tests.mvc.Main'
+applicationDefaultJvmArgs = [
+        "-Dorg.jboss.logging.provider=slf4j",
+        "-Dorg.slf4j.simpleLogger.log.org.jboss.weld=INFO",
+//         "-Dorg.jboss.weld.development=true",
+        "-Djava.util.logging.config.file=src/main/resources/logging.properties"
+]
+
+dependencies {
+    compile "org.glassfish.ozark:ozark:$ozarkVersion"
+    compile "org.glassfish.ozark.ext:ozark-mustache:$ozarkVersion"
+
+    compile "org.jboss.weld.se:weld-se:$weldVersion"
+
+    compile "org.apache.deltaspike.cdictrl:deltaspike-cdictrl-weld:$deltaspikeVersion"
+
+    compile "io.undertow:undertow-core:$undertowVersion"
+    compile "io.undertow:undertow-servlet:$undertowVersion"
+
+    compile "org.glassfish.jersey.core:jersey-server:$jerseyVersion"
+    compile "org.glassfish.jersey.containers:jersey-container-servlet-core:$jerseyVersion"
+    compile "org.glassfish.jersey.ext.cdi:jersey-cdi1x-servlet:$jerseyVersion"
+
+    compile 'org.slf4j:jul-to-slf4j:1.7.18'
+    compile 'org.slf4j:slf4j-simple:1.7.18'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.hamcrest:hamcrest-all:1.3'
+    testCompile 'net.sourceforge.htmlunit:htmlunit:2.20'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.12'
+}
+
+// to support gradle run - beans.xml must be in classes/ directory:
+def copyResourcesToClassesTask = task('copyResourcesToClasses', type: Copy) {
+    from 'build/resources/main'
+    into 'build/classes/main'
+}
+// task dependencies
+copyResourcesToClassesTask.mustRunAfter tasks.processResources
+tasks.classes.dependsOn copyResourcesToClassesTask

@@ -23,7 +23,7 @@ public class CdiProducer {
     public ServletContainer createServletContainer() {
         final ResourceConfig resourceConfig = new ResourceConfig();
         resourceConfig.register(HelloController.class);
-        resourceConfig.property("javax.mvc.engine.ViewEngine.viewFolder", "WEB-INF/views/");
+        resourceConfig.property("javax.mvc.engine.ViewEngine.viewFolder", "META-INF/views/");
 
         return new ServletContainer(resourceConfig);
     }

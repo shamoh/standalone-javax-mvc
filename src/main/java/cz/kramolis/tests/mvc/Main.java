@@ -5,6 +5,7 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 
 import io.undertow.Undertow;
+import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
@@ -51,17 +52,19 @@ public class Main {
     }
 
     private static void initServlet() throws ServletException, NoSuchMethodException {
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         DeploymentInfo deploymentInfo = new DeploymentInfo()
                 .addListener(Servlets.listener(WeldInitialListener.class))
                 .addListener(Servlets.listener(WeldTerminalListener.class))
                 .setContextPath("/")
                 .setDeploymentName("standalone-javax-mvc-app")
-                .addServlets(
+                .addServlet(
                         createServletInfo("/resources/*", "JAX-RS Resources", org.glassfish.jersey.servlet.ServletContainer.class)
                 )
+                .setResourceManager(new ClassPathResourceManager(classLoader, "META-INF/webapp"))
                 .setClassIntrospecter(CdiClassIntrospecter.INSTANCE)
                 .setAllowNonStandardWrappers(true)
-                .setClassLoader(ClassLoader.getSystemClassLoader());
+                .setClassLoader(classLoader);
 
         ServletContainer servletContainer = Servlets.defaultContainer();
         DeploymentManager deploymentManager = servletContainer.addDeployment(deploymentInfo);

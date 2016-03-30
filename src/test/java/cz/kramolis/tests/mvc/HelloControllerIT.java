@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
 
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.apache.deltaspike.cdise.api.CdiContainer;
@@ -13,6 +14,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static com.gargoylesoftware.htmlunit.util.UrlUtils.toUrlUnsafe;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -43,6 +45,8 @@ public class HelloControllerIT {
     @Test
     public void testQueryParamUser() throws Exception {
         HtmlPage page = webClient.getPage(WEB_URL + "/resources/hello?user=mvc");
+        String htmlHeadLinkHref = page.getHead().getHtmlElementsByTagName("link").get(0).getAttribute("href");
+        assertThat(htmlHeadLinkHref, is("/ozark.css"));
         Iterator<HtmlElement> it = page.getDocumentElement().getHtmlElementsByTagName("h1").iterator();
         assertThat(it.next().getTextContent(), containsString("mvc"));
     }
@@ -84,6 +88,12 @@ public class HelloControllerIT {
                                            .getElementById("counter").getTextContent());
 
         assertThat(value2, is(value1 + 1));
+    }
+
+    @Test
+    public void testStaticContent() throws Exception {
+        assertThat(webClient.loadWebResponse(new WebRequest(toUrlUnsafe(WEB_URL + "/index.html"))).getStatusCode(), is(200));
+        assertThat(webClient.loadWebResponse(new WebRequest(toUrlUnsafe(WEB_URL + "/ozark.css"))).getStatusCode(), is(200));
     }
 
 }

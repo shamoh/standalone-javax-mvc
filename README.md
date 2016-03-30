@@ -27,13 +27,13 @@ See my [blog post](http://yatel.kramolis.cz/2016/03/how-to-run-standalone-java-e
 # Build it
 
 ```
-gradle build
+gradlew build
 ```
 
 # Run it
 
 ```
-gradle run
+gradlew run
 ```
 
 # Try it
@@ -45,7 +45,7 @@ curl -vvv http://localhost:8080/resources/hello?user=Libor
 # Distribute it
 
 ```
-gradle distZip
+gradlew distZip
 ```
 
 And `build/distributions/` contains distribution zip.

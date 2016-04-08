@@ -27,26 +27,26 @@ applicationDefaultJvmArgs = [
 ]
 
 dependencies {
-    compile "org.glassfish.ozark:ozark:$ozarkVersion"
-    compile "org.glassfish.ozark.ext:ozark-mustache:$ozarkVersion"
+    compile group: 'org.glassfish.ozark', name: 'ozark', version: ozarkVersion
+    compile group: 'org.glassfish.ozark.ext', name: 'ozark-mustache', version: ozarkVersion
 
-    compile "org.jboss.weld.se:weld-se:$weldVersion"
+    compile group: 'org.jboss.weld.se', name: 'weld-se', version: weldVersion
 
-    compile "org.apache.deltaspike.cdictrl:deltaspike-cdictrl-weld:$deltaspikeVersion"
+    compile group: 'org.apache.deltaspike.cdictrl', name: 'deltaspike-cdictrl-weld', version: deltaspikeVersion
 
-    compile "io.undertow:undertow-core:$undertowVersion"
-    compile "io.undertow:undertow-servlet:$undertowVersion"
+    compile group: 'io.undertow', name: 'undertow-core', version: undertowVersion
+    compile group: 'io.undertow', name: 'undertow-servlet', version: undertowVersion
 
-    compile "org.glassfish.jersey.core:jersey-server:$jerseyVersion"
-    compile "org.glassfish.jersey.containers:jersey-container-servlet-core:$jerseyVersion"
-    compile "org.glassfish.jersey.ext.cdi:jersey-cdi1x-servlet:$jerseyVersion"
+    compile group: 'org.glassfish.jersey.core', name: 'jersey-server', version: jerseyVersion
+    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: jerseyVersion
+    compile group: 'org.glassfish.jersey.ext.cdi', name: 'jersey-cdi1x-servlet', version: jerseyVersion
 
-    compile 'org.slf4j:jul-to-slf4j:1.7.18'
-    compile 'org.slf4j:slf4j-simple:1.7.18'
+    compile group: 'org.slf4j', name: 'jul-to-slf4j', version: '1.7.21'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.21'
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.hamcrest:hamcrest-all:1.3'
-    testCompile 'net.sourceforge.htmlunit:htmlunit:2.20'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+    testCompile group: 'net.sourceforge.htmlunit', name: 'htmlunit', version: '2.21'
 }
 
 task wrapper(type: Wrapper) {

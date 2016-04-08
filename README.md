@@ -1,4 +1,5 @@
 [![Build Status](https://drone.io/github.com/shamoh/standalone-javax-mvc/status.png)](https://drone.io/github.com/shamoh/standalone-javax-mvc/latest)
+[![Dependency Status](https://www.versioneye.com/user/projects/5707d062fcd19a00518550f1/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5707d062fcd19a00518550f1)
 
 # About
 

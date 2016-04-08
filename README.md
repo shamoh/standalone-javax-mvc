@@ -1,3 +1,5 @@
+[![Build Status](https://drone.io/github.com/shamoh/standalone-javax-mvc/status.png)](https://drone.io/github.com/shamoh/standalone-javax-mvc/latest)
+
 # About
 
 This project demonstrates how to create **standalone Java EE MVC application**.
